@@ -1,4 +1,4 @@
-Diffsec,Nodes,State,Backfilled
+Time Difference (s),Nodes,State,Backfilled
 522,9261,COMPLETED,no
 5204,9261,RESIZING,no
 2878,1000,COMPLETED,yes

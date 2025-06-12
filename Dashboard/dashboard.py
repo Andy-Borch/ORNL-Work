@@ -2,9 +2,8 @@ import dash
 from dash import html, dcc, Input, Output
 from dash.dependencies import Input, Output
 
-#TODO: for elapsed time vs node count, specify unit of time elapsed on all graphs (scatter and heatmap)
-    # Update all titles for these also
-    #Update timing titles (difference in seconds, difference for what? expected vs actual runtime?)
+#TODO: fix Number of Jobs over time
+       # Add unit on Elapsed Time Distrbution by Year
 
 GENERAL_PLOTS = [
     {"title": "Job Wait Time Distribution", "file": "WaitTimevsJobID.html"},

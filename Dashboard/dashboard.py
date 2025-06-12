@@ -1,8 +1,11 @@
 import dash
 from dash import html, dcc, Input, Output
-from dash.dependencies import Input, Output, State
+from dash.dependencies import Input, Output
 
-# Define which HTML files to show in each tab
+#TODO: for elapsed time vs node count, specify unit of time elapsed on all graphs (scatter and heatmap)
+    # Update all titles for these also
+    #Update timing titles (difference in seconds, difference for what? expected vs actual runtime?)
+
 GENERAL_PLOTS = [
     {"title": "Job Wait Time Distribution", "file": "WaitTimevsJobID.html"},
     {"title": "Jobs Submitted Over Time", "file": "Num_Jobs_Over_Time.html"},
@@ -33,42 +36,38 @@ TIMING_PLOTS = [
     {"title": "Node Count vs Difference in Seconds (2024)", "file": "Node_vs_Diffsec_2024.html"},
 ]
 
-# Define ORNL color palette
 ORNL_GREEN = "#006341"
-ORNL_DARK_GREEN = "#004d33" # A darker shade for accents
+ORNL_DARK_GREEN = "#004d33"
 ORNL_LIGHT_GREEN = "#e6f2ed"
-ORNL_GREY = "#f0f2f5" # Light grey for background
-ORNL_DARK_GREY = "#4a4a4a" # For text
+ORNL_GREY = "#f0f2f5"
+ORNL_DARK_GREY = "#4a4a4a"
 
 app = dash.Dash(__name__)
-app.title = "ORNL Data Dashboard"
+app.title = "Frontier Job Data Analysis Dashboard"
 
 app.layout = html.Div([
-    # Main container with a subtle background and consistent font
     html.Div(
         style={
-            "fontFamily": "Inter, 'Segoe UI', Arial, sans-serif", # Prioritize Inter for modern look
+            "fontFamily": "Inter, 'Segoe UI', Arial, sans-serif",
             "backgroundColor": ORNL_GREY,
-            "minHeight": "100vh", # Ensure background covers full height
+            "minHeight": "100vh",
             "padding": "30px 20px"
         },
         children=[
-            # Header section
             html.H1(
-                "ORNL Data Dashboard",
+                "Frontier Job Data Analysis Dashboard",
                 style={
                     "textAlign": "center",
                     "marginBottom": "30px",
                     "color": ORNL_DARK_GREEN,
-                    "fontWeight": "800", # Bolder font weight
+                    "fontWeight": "800",
                     "letterSpacing": "1.5px",
-                    "fontSize": "2.8em", # Larger font size
+                    "fontSize": "2.8em",
                     "paddingBottom": "10px",
-                    "borderBottom": f"3px solid {ORNL_GREEN}" # Underline effect
+                    "borderBottom": f"3px solid {ORNL_GREEN}"
                 }
             ),
 
-            # Tabs container
             dcc.Tabs(
                 id="tabs",
                 value="general",
@@ -192,13 +191,13 @@ app.layout = html.Div([
                             "boxShadow": "0 2px 5px rgba(0,0,0,0.05)",
                             "border": f"1px solid {ORNL_GREEN}"
                         },
-                        className="custom-dropdown" # Add a class for potential external CSS
+                        className="custom-dropdown"
                     )
                 ],
                 style={
                     "marginTop": "25px",
                     "marginBottom": "25px",
-                    "display": "none", # Hidden by default, controlled by callback
+                    "display": "none",
                     "backgroundColor": "#ffffff",
                     "padding": "15px 25px",
                     "borderRadius": "8px",
@@ -207,10 +206,9 @@ app.layout = html.Div([
                 }
             ),
 
-            # Container for plots, wrapped with a loading component
             dcc.Loading(
                 id="loading-plots",
-                type="cube", # Or "graph", "dot", "default"
+                type="cube",
                 color=ORNL_GREEN,
                 children=[
                     html.Div(
@@ -230,63 +228,57 @@ app.layout = html.Div([
     )
 ])
 
-# Callback to control visibility of the cleaned plot type dropdown
 @app.callback(
     Output("cleaned-dropdown-container", "style"),
     Input("tabs", "value"),
 )
 def toggle_dropdown_visibility(tab):
     if tab == "cleaned":
-        # Make it visible with some margin
         return {
             "marginTop": "25px",
             "marginBottom": "25px",
-            "display": "flex", # Use flex for alignment
+            "display": "flex",
             "alignItems": "center",
-            "justifyContent": "flex-start", # Align to the left
+            "justifyContent": "flex-start",
             "backgroundColor": "#ffffff",
             "padding": "15px 25px",
             "borderRadius": "8px",
             "boxShadow": "0 2px 8px rgba(0,0,0,0.08)",
             "border": f"1px solid {ORNL_LIGHT_GREEN}"
         }
-    return {"display": "none"} # Hide it
+    return {"display": "none"}
 
-# Callback to update the plots displayed based on tab and dropdown selection
 @app.callback(
     Output("plots-container", "children"),
     Input("tabs", "value"),
     Input("cleaned-plot-type", "value"),
 )
 def update_plots(tab, cleaned_plot_type):
-    # Base style for plot containers within the grid
     plot_card_style = {
         "backgroundColor": "#f8f9fa",
         "padding": "20px",
         "borderRadius": "8px",
         "boxShadow": "0 2px 10px rgba(0,0,0,0.05)",
         "border": f"1px solid {ORNL_LIGHT_GREEN}",
-        "marginBottom": "25px" # Consistent margin bottom for all cards
+        "marginBottom": "25px"
     }
 
-    # Style for plot titles
     plot_title_style = {
         "marginTop": "10px",
         "marginBottom": "20px",
-        "fontSize": "1.4em", # Slightly larger title
+        "fontSize": "1.4em",
         "color": ORNL_DARK_GREEN,
         "fontWeight": "600",
         "textAlign": "center"
     }
 
-    # Style for Iframes
     iframe_style = {
         "width": "100%",
-        "minHeight": "450px", # Minimum height to prevent collapse
-        "height": "auto", # Allow height to adjust
-        "border": "none", # Remove default iframe border
+        "minHeight": "450px",
+        "height": "auto",
+        "border": "none",
         "borderRadius": "6px",
-        "boxShadow": "inset 0 0 5px rgba(0,0,0,0.05)" # Subtle inner shadow
+        "boxShadow": "inset 0 0 5px rgba(0,0,0,0.05)"
     }
 
     if tab == "general":
@@ -299,11 +291,10 @@ def update_plots(tab, cleaned_plot_type):
                     html.H3(plot["title"], style=plot_title_style),
                     html.Iframe(
                         src=f"/assets/{plot['file']}",
-                        style={**iframe_style, "height": "600px"} # Specific height for general plots
+                        style={**iframe_style, "height": "600px"} 
                     )
-                ], style={**plot_card_style, "flex": "1 1 calc(50% - 20px)", "margin": "10px"}) # Flex item with margin
+                ], style={**plot_card_style, "flex": "1 1 calc(50% - 20px)", "margin": "10px"}) 
             )
-            # If two items are collected or it's the last plot
             if len(row_items) == 2 or idx == len(plots) - 1:
                 grid.append(
                     html.Div(
@@ -311,8 +302,8 @@ def update_plots(tab, cleaned_plot_type):
                         style={"display": "flex", "justifyContent": "space-around", "width": "100%", "marginBottom": "10px"} # Add margin to rows
                     )
                 )
-                row_items = [] # Reset row for next pair
-        return html.Div(grid) # Return the full grid of rows
+                row_items = []
+        return html.Div(grid)
 
     elif tab == "cleaned":
         if cleaned_plot_type == "heatmap":
@@ -322,7 +313,7 @@ def update_plots(tab, cleaned_plot_type):
                     html.H3(plot["title"], style=plot_title_style),
                     html.Iframe(
                         src=f"/assets/{plot['file']}",
-                        style={**iframe_style, "height": "700px"} # Specific height for heatmaps
+                        style={**iframe_style, "height": "700px"}
                     )
                 ], style={**plot_card_style, "width": "100%"})
                 for plot in plots
@@ -336,10 +327,10 @@ def update_plots(tab, cleaned_plot_type):
                     html.H3(combined_plot["title"], style=plot_title_style),
                     html.Iframe(
                         src=f"/assets/{combined_plot['file']}",
-                        style={**iframe_style, "height": "600px"} # Specific height for combined scatter
+                        style={**iframe_style, "height": "600px"}
                     )
                 ],
-                style={**plot_card_style, "width": "100%"} # Full width for combined plot
+                style={**plot_card_style, "width": "100%"} 
             )
 
             grid = []
@@ -350,11 +341,11 @@ def update_plots(tab, cleaned_plot_type):
                         html.H3(plot["title"], style=plot_title_style),
                         html.Iframe(
                             src=f"/assets/{plot['file']}",
-                            style={**iframe_style, "height": "600px"} # Specific height for year scatter plots
+                            style={**iframe_style, "height": "600px"} 
                         )
-                    ], style={**plot_card_style, "flex": "1 1 calc(50% - 20px)", "margin": "10px"}) # Flex item for 2x2 grid
+                    ], style={**plot_card_style, "flex": "1 1 calc(50% - 20px)", "margin": "10px"}) 
                 )
-                # If two items are collected or it's the last plot
+
                 if len(row) == 2 or idx == len(year_plots) - 1:
                     grid.append(html.Div(row, style={"display": "flex", "justifyContent": "space-around"}))
                     row = []
@@ -367,7 +358,7 @@ def update_plots(tab, cleaned_plot_type):
                 html.H3(plot["title"], style=plot_title_style),
                 html.Iframe(
                     src=f"/assets/{plot['file']}",
-                    style={**iframe_style, "height": "1100px"} # Specific height for timing plots
+                    style={**iframe_style, "height": "1100px"} 
                 )
             ], style={**plot_card_style, "width": "100%"})
             for plot in plots

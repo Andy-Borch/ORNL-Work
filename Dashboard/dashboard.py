@@ -75,7 +75,24 @@ app.layout = html.Div([
             "primary": ORNL_GREEN,
             "background": ORNL_LIGHT,
         }),
-        html.Div(id="cleaned-dropdown-container"),
+        html.Div(
+            id="cleaned-dropdown-container",
+            children=[
+                html.Label("Plot Type:", style={"marginRight": "10px"}),
+                dcc.Dropdown(
+                    id="cleaned-plot-type",
+                    options=[
+                        {"label": "Scatter", "value": "scatter"},
+                        {"label": "Heatmap", "value": "heatmap"},
+                    ],
+                    value="scatter",
+                    clearable=False,
+                    style={"width": "200px", "display": "inline-block"}
+                )
+            ],
+            style={"marginBottom": "20px", "display": "none"}  # Hidden by default
+        ),
+
         html.Div(
             id="plots-container",
             style={
@@ -95,9 +112,15 @@ app.layout = html.Div([
     })
 
 @app.callback(
-    Output("cleaned-dropdown-container", "children"),
+    Output("cleaned-dropdown-container", "style"),
     Input("tabs", "value"),
 )
+
+def toggle_dropdown_visibility(tab):
+    if tab == "cleaned":
+        return {"marginBottom": "20px", "display": "block"}
+    return {"display": "none"}
+
 def show_cleaned_dropdown(tab):
     if tab == "cleaned":
         return html.Div([

@@ -25,13 +25,13 @@ import argparse
     #
     # Replace "YOUR_API_KEY_HERE" with the actual API key you obtained.
     # It's highly recommended NOT to hardcode your API key directly in the script.
-    # ---------------------------------
+# ---------------------------------
 
 
 def main():
 
-    parser = argparse.ArgumentParser(description="Generate scatter and heatmap plots.")
-    parser.add_argument("--infile", help="Path to the first input image file.")
+    parser = argparse.ArgumentParser(description="Generate LLM anaylsis of plots.")
+    parser.add_argument("--infile", help="Path to the first input image file.", required=True)
     parser.add_argument("--infile2", help="Path to the second input image file (optional, for comparison).")
     parser.add_argument("--outfile", help="Path to the output markdown file.", required=True)
     args = parser.parse_args()

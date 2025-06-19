@@ -10,9 +10,7 @@ def convert_to_numbers(x):
     return pd.to_numeric(x, errors='coerce')
 
 def load_data(file):
-
     data = pd.read_csv(file)
-
     data.columns = ['UID','GID','JobIDRaw','Group','Account','JobName','TimelimitRaw','Submit','Start','End','State','ExitCode',
                     'ReservationId','Reservation','Priority','Eligible','Constraints','SystemCPU','CPUTimeRAW','ElapsedRaw',
                     'Layout','NTasks','QOSREQ','QOS','Restarts','WorkDir','ConsumedEnergyRaw','FailedNode','AveDiskRead',
@@ -20,9 +18,7 @@ def load_data(file):
                     'DerivedExitCode','AveVMSize','MaxVMSize','ReqMem','ReqNodes','NNodes','Planned','PlannedCPURAW','NCPUS',
                     'UserCPU','ReqCPUS','TotalCPU','TRESUsageInTot','TRESUsageOutTot','ReqTRES','AllocTRES','TRESUsageInMax',
                     'TRESUsageOutMax','Flags','Comment','SystemComment','AdminComment']
-
     data = data.sort_values(by=['JobIDRaw'], ascending=True)
-
     return data
 
 
@@ -70,7 +66,8 @@ def main():
                 labels={'Count': 'Number of Jobs Submitted', 'UID': 'User ID', 'NormalizedState': 'Job State'},
                 category_orders={'NormalizedState': states})
 
-    bar.write_html(args.outfile)
+    bar.write_html(f"{args.outfile}.html")
+    bar.write_image(f"{args.outfile}.png")
 
 if __name__ == "__main__":
     main()

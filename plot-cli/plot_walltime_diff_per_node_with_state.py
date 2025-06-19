@@ -1,13 +1,6 @@
 import pandas as pd
 import plotly.express as px
-from plotly.subplots import make_subplots
 import argparse
-
-
-def load_data(file):
-    data = pd.read_csv(file)
-    data.columns = ['Diffsec', 'Nodes', 'State', 'Backfilled']
-    return data
 
 
 def convert_to_numbers(x):
@@ -16,6 +9,12 @@ def convert_to_numbers(x):
         if x.endswith("K"):
             return float(x[:-1]) * 1000
     return pd.to_numeric(x, errors='coerce')
+
+
+def load_data(file):
+    data = pd.read_csv(file)
+    data.columns = ['Diffsec', 'Nodes', 'State', 'Backfilled']
+    return data
 
 
 def main():
@@ -97,9 +96,8 @@ def main():
         showlegend=True,
     )
 
-    fig.write_html(args.outfile)
-    print(f"Plot saved to {args.outfile}")
-
+    fig.write_html(f"{args.outfile}.html")
+    fig.write_image(f"{args.outfile}.png")
 
 if __name__ == "__main__":
     main()

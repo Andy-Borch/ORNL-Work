@@ -136,8 +136,8 @@ def load_data(file):
 
 def main():
     parser = argparse.ArgumentParser(description="Generate scatter and heatmap plots.")
-    parser.add_argument("--infile", help="Path to the input csv file.")
-    parser.add_argument("--outfile", help="Path to the output html file.")
+    parser.add_argument("--infile", help="Path to the input csv file.", required=True)
+    parser.add_argument("--outfile", help="Path to the output html file.", required=True)
     args = parser.parse_args()
 
     if not args.infile:
@@ -151,16 +151,12 @@ def main():
     data = load_data(args.infile)
 
     scatter_plot = create_scatter(data)
-    if scatter_plot:
-        scatter_plot.write_html(f"scatter_{args.outfile}")
-    else:
-        print("No scatter plot generated.")
+    scatter_plot.write_html(f"scatter_{args.outfile}.html")
+    scatter_plot.write_image(f"scatter_{args.outfile}.png")
 
     heatmap_plot = plot_heatmap(data)
-    if heatmap_plot:
-        heatmap_plot.write_html(f"heatmap_{args.outfile}")
-    else:
-        print("No heatmap plot generated.")
+    heatmap_plot.write_html(f"heatmap_{args.outfile}_html")
+    heatmap_plot.write_image(f"heatmap_{args.outfile}.png")
 
 
 if __name__ == "__main__":

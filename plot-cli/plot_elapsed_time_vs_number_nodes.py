@@ -152,11 +152,9 @@ def main():
 
     scatter_plot = create_scatter(data)
     scatter_plot.write_html(f"scatter_{args.outfile}.html")
-    scatter_plot.write_image(f"scatter_{args.outfile}.png")
 
     heatmap_plot = plot_heatmap(data)
     heatmap_plot.write_html(f"heatmap_{args.outfile}_html")
-    heatmap_plot.write_image(f"heatmap_{args.outfile}.png")
 
 
 if __name__ == "__main__":

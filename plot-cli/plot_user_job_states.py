@@ -67,7 +67,6 @@ def main():
                 category_orders={'NormalizedState': states})
 
     bar.write_html(f"{args.outfile}.html")
-    bar.write_image(f"{args.outfile}.png")
 
 if __name__ == "__main__":
     main()

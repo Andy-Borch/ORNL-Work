@@ -97,7 +97,6 @@ def main():
     )
 
     fig.write_html(f"{args.outfile}.html")
-    fig.write_image(f"{args.outfile}.png")
 
 if __name__ == "__main__":
     main()

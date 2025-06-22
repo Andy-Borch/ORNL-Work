@@ -1,6 +1,7 @@
 import google.generativeai as genai
 from google import genai
 import os
+import sys
 import argparse
 
 # --- NOTES FOR USER: ---
@@ -47,6 +48,31 @@ def main():
     print(f"Output file: {args.outfile}")
 
     google_api_key = os.getenv("GOOGLE_API_KEY")
+
+    if not google_api_key:
+        with open(args.outfile, 'w', newline='', encoding='utf-8') as mdfile:
+            mdfile.write("# Plot Analysis\n")
+            mdfile.write("The `GOOGLE_API_KEY` environment variable is not set. Unable to perform analysis.\n\n")
+            mdfile.write("## How to Set Up the API Key\n")
+            mdfile.write("To run this script, you need to obtain your own Google Gemini API Key and set it as an environment variable named `GOOGLE_API_KEY`.\n\n")
+            mdfile.write("### How to obtain an API Key:\n")
+            mdfile.write("1. Go to [Google AI Studio](https://aistudio.google.com/)\n")
+            mdfile.write("2. Log in with your Google account.\n")
+            mdfile.write("3. Create a new API key or use an existing one.\n\n")
+            mdfile.write("### How to set the `GOOGLE_API_KEY` environment variable:\n\n")
+            mdfile.write("#### For Linux/macOS:\n")
+            mdfile.write("Add the following line to your `~/.bashrc`, `~/.zshrc`, or similar, then run `source` on the file or restart your terminal:\n")
+            mdfile.write("```bash\nexport GOOGLE_API_KEY=\"YOUR_API_KEY_HERE\"\n```\n\n")
+            mdfile.write("#### For Windows (Command Prompt, temporary for current session):\n")
+            mdfile.write("```cmd\nset GOOGLE_API_KEY=\"YOUR_API_KEY_HERE\"\n```\n\n")
+            mdfile.write("#### For Windows (PowerShell, temporary for current session):\n")
+            mdfile.write("```powershell\n$env:GOOGLE_API_KEY=\"YOUR_API_KEY_HERE\"\n```\n\n")
+            mdfile.write("Replace `YOUR_API_KEY_HERE` with the actual API key you obtained.\n")
+            mdfile.write("**It's highly recommended NOT to hardcode your API key directly in the script.**\n")
+
+        print("GOOGLE_API_KEY not set. Output file created with setup instructions.")
+        sys.exit(0)
+
     client = genai.Client(api_key=google_api_key)
 
     uploaded_file1 = client.files.upload(file=args.infile)

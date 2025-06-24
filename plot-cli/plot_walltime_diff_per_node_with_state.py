@@ -96,7 +96,7 @@ def main():
         showlegend=True,
     )
 
-    fig.write_html(f"{args.outfile}.html")
+    fig.write_html(args.outfile)
 
 if __name__ == "__main__":
     main()

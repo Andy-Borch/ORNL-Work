@@ -66,7 +66,7 @@ def main():
                 labels={'Count': 'Number of Jobs Submitted', 'UID': 'User ID', 'NormalizedState': 'Job State'},
                 category_orders={'NormalizedState': states})
 
-    bar.write_html(f"{args.outfile}.html")
+    bar.write_html(args.outfile)
 
 if __name__ == "__main__":
     main()

@@ -369,4 +369,4 @@ def update_plots(tab, cleaned_plot_type):
 
 if __name__ == '__main__':
     Timer(1, open_browser).start()
-    app.run(debug=True, port=port)
+    app.run(port=port)

@@ -1,9 +1,8 @@
 import dash
 from dash import html, dcc, Input, Output
 from dash.dependencies import Input, Output
-
-#TODO: fix Number of Jobs over time
-       # Add unit on Elapsed Time Distrbution by Year
+import webbrowser
+from threading import Timer
 
 GENERAL_PLOTS = [
     {"title": "Job Wait Time Distribution", "file": "WaitTimevsJobID.html"},
@@ -43,6 +42,10 @@ ORNL_DARK_GREY = "#4a4a4a"
 
 app = dash.Dash(__name__)
 app.title = "Frontier Job Data Analysis Dashboard"
+port = 8051
+
+def open_browser():
+    webbrowser.open_new("http://localhost:{}".format(port))
 
 app.layout = html.Div([
     html.Div(
@@ -365,4 +368,5 @@ def update_plots(tab, cleaned_plot_type):
 
 
 if __name__ == '__main__':
-    app.run(debug=True, port=8051)
+    Timer(1, open_browser).start()
+    app.run(debug=True, port=port)

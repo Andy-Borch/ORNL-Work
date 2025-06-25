@@ -41,7 +41,7 @@ ORNL_GREY = "#f0f2f5"
 ORNL_DARK_GREY = "#4a4a4a"
 
 app = dash.Dash(__name__)
-app.title = "Frontier Job Data Analysis Dashboard"
+app.title = "Job Submission Data Dashboard"
 port = 8051
 
 def open_browser():

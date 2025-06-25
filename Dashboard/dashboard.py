@@ -5,7 +5,7 @@ import webbrowser
 from threading import Timer
 
 GENERAL_PLOTS = [
-    {"title": "Job Wait Time Distribution", "file": "WaitTimevsJobID.html"},
+    {"title": "Job Wait Time Distribution", "file": "user_job_states.html"},
     {"title": "Jobs Submitted Over Time", "file": "Num_Jobs_Over_Time.html"},
     {"title": "Jobs Submitted per User", "file": "Jobs_Submitted_per_User.html"},
     {"title": "Node Count by Year", "file": "Node_Count_by_Year.html"},
@@ -14,17 +14,17 @@ GENERAL_PLOTS = [
 
 CLEANED_SCATTER_PLOTS = [
     {"title": "Elapsed Time vs Node Count (All Years)", "file": "Cleaned_ElapsedvsNode_AllYears.html"},
-    {"title": "Elapsed Time vs Node Count (2021)", "file": "Cleaned_ElapsedvsNode_2021.html"},
-    {"title": "Elapsed Time vs Node Count (2022)", "file": "Cleaned_ElapsedvsNode_2022.html"},
-    {"title": "Elapsed Time vs Node Count (2023)", "file": "Cleaned_ElapsedvsNode_2023.html"},
-    {"title": "Elapsed Time vs Node Count (2024)", "file": "Cleaned_ElapsedvsNode_2024.html"},
+    {"title": "Elapsed Time vs Node Count (2021)", "file": "scatter_2021-ElapsedvNode.html"},
+    {"title": "Elapsed Time vs Node Count (2022)", "file": "scatter_2022-ElapsedvNode.html"},
+    {"title": "Elapsed Time vs Node Count (2023)", "file": "scatter_2023-ElapsedvNode.html"},
+    {"title": "Elapsed Time vs Node Count (2024)", "file": "scatter_2024-ElapsedvNode.html"},
 ]
 
 CLEANED_HEATMAP_PLOTS = [
-    {"title": "Elapsed Time vs Node Count Heatmap (2021)", "file": "Cleaned_ElapsedvsNode_Heatmap_2021.html"},
-    {"title": "Elapsed Time vs Node Count Heatmap (2022)", "file": "Cleaned_ElapsedvsNode_Heatmap_2022.html"},
-    {"title": "Elapsed Time vs Node Count Heatmap (2023)", "file": "Cleaned_ElapsedvsNode_Heatmap_2023.html"},
-    {"title": "Elapsed Time vs Node Count Heatmap (2024)", "file": "Cleaned_ElapsedvsNode_Heatmap_2024.html"},
+    {"title": "Elapsed Time vs Node Count Heatmap (2021)", "file": "heatmap_2021-ElapsedvNode.html"},
+    {"title": "Elapsed Time vs Node Count Heatmap (2022)", "file": "heatmap_2022-ElapsedvNode.html"},
+    {"title": "Elapsed Time vs Node Count Heatmap (2023)", "file": "heatmap_2023-ElapsedvNode.html"},
+    {"title": "Elapsed Time vs Node Count Heatmap (2024)", "file": "heatmap_2024-ElapsedvNode.html"},
 ]
 
 TIMING_PLOTS = [

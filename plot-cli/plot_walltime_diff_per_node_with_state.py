@@ -71,7 +71,7 @@ def main():
         symbol='backfilled_label',
         color_discrete_map=color_map,
         symbol_sequence=['circle', 'cross'],
-        title=f"Node vs Wait Time - Actual Time Difference (s){plot_title_year_part}"
+        title=f"Node Count vs Wait Time - Actual Time Difference (s){plot_title_year_part}"
     )
 
     for trace in fig.data:

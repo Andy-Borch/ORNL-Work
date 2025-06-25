@@ -34,12 +34,15 @@ def create_scatter(df):
         df,
         x='Elapsed Time',
         y='Nodes',
-        title='Elapsed Time(s) vs Requested Nodes',
+        title='Elapsed Time(s) vs Number of Requested Nodes',
         log_x=True
     )
     scatter_plot.update_layout(
         xaxis=dict(range=[np.log10(10), np.log10(1000)])
     )
+
+    scatter_plot.update_yaxes(title_text='Number of Requested Nodes')
+    scatter_plot.update_xaxes(title_text='Elapsed Time (s)')
 
     return scatter_plot
 
@@ -115,7 +118,7 @@ def plot_heatmap(df):
 
     fig.update_layout(
         title={
-            'text': 'Elapsed Time(s) vs Requested Nodes Heatmaps<br><sub>Left: Log-scaled; Right: Linear-scaled</sub>',
+            'text': 'Elapsed Time(s) vs Number of Requested Nodes Heatmaps<br><sub>Left: Log-scaled; Right: Linear-scaled</sub>',
             'x': 0.5
         },
         xaxis_title='Elapsed Time',

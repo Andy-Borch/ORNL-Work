@@ -65,6 +65,10 @@ def main():
                 title='Jobs Submitted per User',
                 labels={'Count': 'Number of Jobs Submitted', 'UID': 'User ID', 'NormalizedState': 'Job State'},
                 category_orders={'NormalizedState': states})
+    
+    bar.update_yaxes(title_text="Wait Time (s)")
+    bar.update_xaxes(title_text="Job ID")
+    bar.update_layout(title_text="Job Wait Time by User ID and Final Job State")
 
     bar.write_html(args.outfile)
 

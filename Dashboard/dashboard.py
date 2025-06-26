@@ -57,7 +57,7 @@ app.layout = html.Div([
         },
         children=[
             html.H1(
-                "Frontier Job Data Analysis Dashboard",
+                "Job Submission Data Dashboard",
                 style={
                     "textAlign": "center",
                     "marginBottom": "30px",

@@ -53,4 +53,4 @@ if __name__ == '__main__':
     # generated, but it can be changed by passing a False flag to the run_simulation
     # method.
     #===========================================================================
-    experimentation.run_simulation(generate_plot=False)
+    experimentation.run_simulation(generate_plot=True)

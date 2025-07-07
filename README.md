@@ -12,5 +12,7 @@ Specifically, this repository includes code that:
 This project was developed during a summer internship at **Oak Ridge National Laboratory**. It forms one piece of a modular pipeline that analyzes job scheduler logs and outputs visual insights to support research into HPC resource utilization.
 
 ## Full workflow
+![Full workflow](https://github.com/Andy-Borch/ORNL-Work/blob/main/Dashboard/assets/actual_workflow.png)
+- This repo corresponds to the portion of the workflow where plots like Job States, Wait Times, Backfill, etc are generated.
 
 

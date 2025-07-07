@@ -1,5 +1,16 @@
-# ORNL-Work
-This repo contains the code written for my summer 2025 internship at Oak Ridge National Lab. All code is run inside an Anaconda environment.
+# LLM-Enabled Workflow for HPC Scheduling Practices
 
-## Interactive plots:
-- .html files are plots that are interactive. download them and open them in a browser to view and interact with them
+This repository contains part of a larger workflow designed to aid in the understanding of job submission patterns and job scheduling behaviors on supercomputing systems such as **Frontier** at Oak Ridge National Laboratory (ORNL).
+
+Specifically, this repository includes code that:
+
+- Processes CSV files generated from earlier stages of the workflow  
+- Generates a variety of plots to visualize HPC job data (e.g., job durations, queue times, node usage, etc.)
+
+## Background
+
+This project was developed during a summer internship at **Oak Ridge National Laboratory**. It forms one piece of a modular pipeline that analyzes job scheduler logs and outputs visual insights to support research into HPC resource utilization.
+
+## Full workflow
+
+

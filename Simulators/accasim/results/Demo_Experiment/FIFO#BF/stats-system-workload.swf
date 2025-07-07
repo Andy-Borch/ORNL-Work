@@ -1,0 +1,6 @@
+Simulation time: 64.64 secs
+Dispathing method: FirstInFirstOut-FIFO-BestFit
+Total jobs: 200734
+Makespan: 109037374
+Avg. waiting times: 16541.33
+Avg. slowdown: 602.58

@@ -1,0 +1,6 @@
+Simulation time: 59.49 secs
+Dispathing method: ShortestJobFirst-SJF-BestFit
+Total jobs: 200734
+Makespan: 109037374
+Avg. waiting times: 8620.84
+Avg. slowdown: 220.60

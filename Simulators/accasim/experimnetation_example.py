@@ -9,7 +9,7 @@ if __name__ == '__main__':
     # to create a folder and later to put every output file of the simulator on it.
     # For each scheduling and allocation combination a sub-folder will be created. 
     #===========================================================================
-    experiment_name = 'experiment-name'
+    experiment_name = 'Demo_Experiment'
     
     #===========================================================================
     # Workload under testing

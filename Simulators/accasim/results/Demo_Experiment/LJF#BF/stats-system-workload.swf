@@ -1,6 +1,6 @@
-Simulation time: 67.86 secs
+Simulation time: 13.84 secs
 Dispathing method: LongestJobFirst-LJF-BestFit
-Total jobs: 200734
-Makespan: 109037374
-Avg. waiting times: 25065.58
-Avg. slowdown: 1092.13
+Total jobs: 53942
+Makespan: 38853912
+Avg. waiting times: 22119.56
+Avg. slowdown: 1772.14

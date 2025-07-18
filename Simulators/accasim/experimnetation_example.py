@@ -14,7 +14,7 @@ if __name__ == '__main__':
     #===========================================================================
     # Workload under testing
     #===========================================================================
-    workload = '/home/er3/ORNL-Work/Simulators/accasim/workloads/system-workload.swf'
+    workload = '/home/er3/ORNL-Work/Simulators/accasim/sample_workload.swf'
     
     #===========================================================================
     # Configuration file of the sysmtem under study, the configuration must 
@@ -39,7 +39,7 @@ if __name__ == '__main__':
     #===========================================================================
     # The lists of scheduler and allocator classes name are defined. 
     #===========================================================================
-    sched_list = [fifo_sched, sjf_sched, ljf_sched, easybf_sched]
+    sched_list = [easybf_sched]
     alloc_list = [ff_alloc, bf_alloc]
 
     #===========================================================================
@@ -53,4 +53,4 @@ if __name__ == '__main__':
     # generated, but it can be changed by passing a False flag to the run_simulation
     # method.
     #===========================================================================
-    experimentation.run_simulation(generate_plot=True)
+    experimentation.run_simulation(generate_plot=False)

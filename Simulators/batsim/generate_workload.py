@@ -13,13 +13,11 @@ RETURN_CODES = {
 
 def generate_synthetic_workload(num_jobs, nb_res, walltime_range, res_range, subtime_range):
     profiles = {
+        # Modified 'simple' to be parallel_homogeneous
         "simple": {
-            "type": "parallel",
-            "cpu": [5e6, 0, 0, 0],
-            "com": [5e6, 0, 0, 0,
-                    5e6, 5e6, 0, 0,
-                    5e6, 5e6, 0, 0,
-                    5e6, 5e6, 5e6, 0]
+            "type": "parallel_homogeneous",
+            "cpu": 5e6,  # Single value for homogeneous
+            "com": 5e6   # Single value for homogeneous
         },
         "homogeneous": {
             "type": "parallel_homogeneous",
@@ -136,7 +134,7 @@ if __name__ == '__main__':
     parser.add_argument("--nb-res", type=int, default=4)
     parser.add_argument("--walltime-range", nargs=2, type=int, default=[10, 100])
     parser.add_argument("--res-range", nargs=2, type=int, default=[1, 4])
-    parser.add_argument("--subtime-range", nargs=2, type=int, default=[0, 50])
+    parser.add_argument("--subtime-range", nargs=2, type=int, default=[1, 50])
 
     # Failure rate args
     parser.add_argument("--job-failure-min", type=float, default=3.0)

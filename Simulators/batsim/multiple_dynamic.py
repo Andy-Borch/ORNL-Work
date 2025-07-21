@@ -4,12 +4,8 @@ import random
 import argparse
 import os
 import shutil
-import time
-
-# === Scheduling algorithms ===
 
 def fcfs_scheduler(jobs, executed_jobs, now):
-    # First-Come, First-Served (by submission time)
     return [
         job for job in sorted(jobs, key=lambda job: job["subtime"])
         if job["id"] not in executed_jobs and now >= job["subtime"]
@@ -64,8 +60,6 @@ def select_jobs_to_execute(jobs, executed_jobs, now, algorithm):
     else:
         raise ValueError(f"Unknown algorithm: {algorithm}")
 
-# === Main scheduling server ===
-
 def run_scheduler(algorithm, jobs):
     context = zmq.Context()
     socket = context.socket(zmq.REP)
@@ -110,7 +104,7 @@ def run_scheduler(algorithm, jobs):
                 print(f"[{algorithm} @ {now:.2f}] Simulation ended.")
                 response["events"] = []
                 socket.send_json(response)
-                break  # end simulation loop
+                break 
 
         if registered_profile:
             for job in jobs:
@@ -158,8 +152,6 @@ def run_scheduler(algorithm, jobs):
 
         socket.send_json(response)
 
-# === Run each algorithm once and move output ===
-
 def generate_jobs(num_jobs, min_walltime, max_walltime):
     jobs = []
     for i in range(num_jobs):
@@ -193,17 +185,15 @@ def main():
     for algorithm in algorithms:
         print(f"\n=== Running algorithm: {algorithm} ===")
 
-        # Fork the scheduler process
         pid = os.fork()
         if pid == 0:
             run_scheduler(algorithm, original_jobs.copy())
             os._exit(0)
         else:
-            # Launch batsim from parent process
+
             os.system("batsim -p sample_xml.xml --enable-dynamic-jobs --acknowledge-dynamic-jobs -s tcp://localhost:28000 --enable-compute-sharing")
             os.waitpid(pid, 0)
 
-            # Move output files
             move_output_files(algorithm)
 
     print("\n All algorithms finished. Results stored in *_dynamic_results folders.")

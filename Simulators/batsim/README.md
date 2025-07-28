@@ -1,6 +1,6 @@
 # Batsim Directory Overview
 
-This repository contains resutls and scripts for evaluating the performance of various algorithms in Batsim
+This repository contains results and scripts for evaluating the performance of various algorithms in Batsim.
 
 - Subdirectories of simulation results organized by algorithm.
 - Python scripts to generate synthetic workloads, run simulations, and visualize results.
@@ -29,6 +29,9 @@ This repository contains resutls and scripts for evaluating the performance of v
 ### `generate_workload.py`
 Generates synthetic workloads used as input for simulations.
 
+### `compare_algorithms.py`
+Compares performance metrics across different algorithms.
+
 ### `plot_results.py`
 Generates plots and comparative graphs from simulation output files.
 
@@ -39,4 +42,10 @@ Simulation results are organized per algorithm. Each subdirectory may contain:
 - Logs and statistics
 - Plots or figures summarizing performance metrics
 
+## Dynamic Results (Work in Progress)
 
+The current results and analyses are based on *static workloads*—that is, all jobs are known at the start of the simulation. We are looking into extending the framework to support *dynamic workloads*, where jobs arrive over time during simulation. This will allow for a more realistic evaluation of scheduling algorithms in online environments.
+
+Future updates will include:
+- Support for Batsim dynamic job submission
+- Comparison of algorithm performance under dynamic conditions

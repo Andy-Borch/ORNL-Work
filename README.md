@@ -1,18 +1,56 @@
-# LLM-Enabled Workflow for HPC Scheduling Practices
+# Tools and Analysis for HPC Job Scheduling Research
 
-This repository contains part of a larger workflow designed to aid in the understanding of job submission patterns and job scheduling behaviors on supercomputing systems such as **Frontier** at Oak Ridge National Laboratory (ORNL).
+This repository contains code developed during a summer internship at **Oak Ridge National Laboratory (ORNL)** to support research into **job scheduling and submission data and ineractive/urgent mechanisms** on HPC systems like **Frontier**.
 
-Specifically, this repository includes code that:
+The repository is organized into two main components:
 
-- Processes CSV files generated from earlier stages of the workflow  
-- Generates a variety of plots to visualize HPC job data (e.g., job durations, queue times, node usage, etc.)
+- [`Workflow/`](./Workflow): Scripts for processing and visualizing HPC job submission data.
+- [`Simulators/`](./Simulators): Code for evaluating existing job scheduler simulators for support of advanced scheduling features.
 
-## Background
+---
 
-This project was developed during a summer internship at **Oak Ridge National Laboratory**. It forms one piece of a modular pipeline that analyzes job scheduler logs and outputs visual insights to support research into HPC resource utilization.
+##  Workflow Directory
 
-## Full workflow
+The `Workflow/` directory includes code that:
+
+- Parses CSV files from prior workflow stages
+- Generates visualizations to explore:
+  - Job durations
+  - Queue/wait times
+  - Node usage
+  - Job state distributions
+  - Backfilling behavior
+- Creates a user freindly dashboard with results
+
+### Context
+
+This work is part of a workflow that processes job scheduler logs and outputs visual insights. These insights help HPC researchers and system administrators understand scheduling trends and resource utilization on systems such as ORNL's **Frontier** supercomputer.
+
+### Full Workflow Diagram
+
 ![Full workflow](https://github.com/Andy-Borch/ORNL-Work/blob/main/Dashboard/assets/actual_workflow.png)
-- This repo corresponds to the portion of the workflow where plots like Job States, Wait Times, Backfill, etc are generated.
 
+> This repository corresponds to the **data visualization** stage of the above pipeline.
 
+##  Related Publication
+
+The work in the `Workflow/` directory contributed to a research paper that has beenvaccepted to the following conference:
+
+**Title:** _"An LLM-Enabled Workflow for Understanding and Evolving HPC Job Scheduling Practices"_  
+**Conference:** 1st Workshop on Workflows, Intelligent Scientific Data, and Optimization for Automated Management, ICPP 2025
+
+While the paper is not yet published, this repository reflects some of the core techniques and visual outputs described in the work.
+
+---
+
+##  Simulators Directory
+
+The `Simulators/` directory explores the capabilities of various existing HPC job scheduler simulators. The goal is to evaluate:
+
+- Whether simulators support **user-level QoS (Quality of Service)** configurations
+- If they allow **urgent or high-priority job submissions**
+- How flexible they are for further research
+
+Each simulator is tested and analyzed for these features. Results are documented in the respective subdirectories.
+
+---

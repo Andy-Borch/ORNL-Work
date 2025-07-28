@@ -15,8 +15,11 @@ def main():
     socket.bind("tcp://*:28000")
 
     workload_name = "dyn"
-    profile_name = "delay_5s"
-    profile_data = {"type": "delay", "delay": 5.0}
+    profile_name = "delay_15s"
+    profile_data = {"type": "delay", "delay": 15.0}
+
+    resource_count = 1
+    #TODO: add a way to either randomize or speciy num resources for jobs
 
     # Generate jobs with random walltimes in given range and staggered subtime (0,1,2,...)
     jobs = []
@@ -29,6 +32,7 @@ def main():
             "walltime": walltime,
             "subtime": i  # stagger jobs by 1 time unit each
         })
+
 
     registered_profile = False
     registered_jobs = set()

@@ -179,7 +179,7 @@ def main():
     parser.add_argument("--max-walltime", type=float, default=15.0)
     args = parser.parse_args()
 
-    algorithms = ["fcfs", "sjf", "random", "easy_bf", "filler"]
+    algorithms = ["fcfs", "sjf", "random", "easy_bf", "filler", "conservative_bf"]
     original_jobs = generate_jobs(args.num_jobs, args.min_walltime, args.max_walltime)
 
     for algorithm in algorithms:

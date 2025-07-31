@@ -67,8 +67,7 @@ def main():
 
             elif etype == "SIMULATION_ENDS":
                 print(f"[{now:.2f}] Simulation ended.")
-                response["events"] = []  # clear any events
-                # Optionally, break or continue waiting for more messages
+                response["events"] = []
 
         # Only register and execute jobs after profile registered
         if registered_profile:

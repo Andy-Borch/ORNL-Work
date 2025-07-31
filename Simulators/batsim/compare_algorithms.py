@@ -6,6 +6,9 @@ from pathlib import Path
 from scipy.stats import mannwhitneyu
 from itertools import combinations
 
+import pandas as pd
+import plotly.express as px
+
 # Evalys imports
 from evalys.jobset import JobSet
 from evalys import visu
@@ -84,12 +87,11 @@ for sched1, sched2 in combinations(schedulers.keys(), 2):
     u_stat, p_val = mannwhitneyu(data1, data2, alternative='two-sided')
     summary_lines.append(f"{sched1} vs {sched2}: U={u_stat:.3f}, p={p_val:.4f}")
 
-# Save summary text file
 with open(out_dir / "comparison_summary.txt", "w") as f:
     f.write("\n".join(summary_lines))
 
 
-# --- Plotting comparisons ---
+# --- Plotting ---
 
 # 1. Stretch vs Requested Resources
 fig1 = px.scatter(
@@ -101,7 +103,6 @@ fig1 = px.scatter(
     hover_data=["job_id", "submission_time", "execution_time"]
 )
 fig1.write_image(out_dir / "stretch_vs_requested_resources.png")
-fig1.show()
 
 # 2. Gantt-style Timeline Plot (all schedulers combined)
 fig2 = px.timeline(
@@ -115,7 +116,6 @@ fig2 = px.timeline(
 )
 fig2.update_yaxes(autorange="reversed")
 fig2.write_image(out_dir / "job_execution_timeline.png")
-fig2.show()
 
 # 3. Machine State Over Time (all schedulers + states)
 fig3 = go.Figure()
@@ -139,7 +139,6 @@ fig3.update_layout(
     width=1000
 )
 fig3.write_image(out_dir / "machine_states_over_time.png")
-fig3.show()
 
 # 4. Histogram of Job Waiting Times
 fig4 = px.histogram(
@@ -158,7 +157,6 @@ fig4.update_layout(
     bargap=0.1
 )
 fig4.write_image(out_dir / "histogram_waiting_times.png")
-fig4.show()
 
 # 5. Waiting Time vs Submission Time
 fig5 = px.scatter(
@@ -180,7 +178,6 @@ fig5.update_layout(
     legend_title="Scheduler"
 )
 fig5.write_image(out_dir / "waiting_vs_submission_time.png")
-fig5.show()
 
 # 6. Distribution of Failures Over Time
 failures_df = jobs_df[jobs_df["success"] == 0].copy()
@@ -198,7 +195,6 @@ fig6 = px.bar(
     labels={"bin_start": "Submission Time (s)", "failures": "Number of Failed Jobs"}
 )
 fig6.write_image(out_dir / "failures_over_time.png")
-fig6.show()
 
 # 7. Queue Length Over Time (all schedulers)
 queue_dfs = []
@@ -229,7 +225,6 @@ fig7 = px.line(
     labels={"time": "Simulation Time (s)", "queue_length": "Number of Jobs in Queue"}
 )
 fig7.write_image(out_dir / "queue_length_over_time.png")
-fig7.show()
 
 # 8. Gantt Chart of Jobs (Success Colored, all schedulers combined)
 jobs_sorted = jobs_df.sort_values("submission_time")
@@ -245,7 +240,6 @@ fig8 = px.timeline(
 )
 fig8.update_yaxes(autorange="reversed")
 fig8.write_image(out_dir / "gantt_chart_jobs.png")
-fig8.show()
 
 # 9. Evalys Gantt Chart per scheduler (saved individually)
 for name, path in schedulers.items():
@@ -253,4 +247,30 @@ for name, path in schedulers.items():
     fig9 = visu.gantt.plot_gantt(js)
     plt.title(f"Evalys Gantt Chart for {name}")
     plt.savefig(out_dir / f"evalys_gantt_chart_{name}.png", bbox_inches="tight")
-    plt.show()
+
+for name, path in schedulers.items():
+    job_csv = path / "out_jobs.csv"
+    df = pd.read_csv(job_csv)
+
+    # Convert numeric times (seconds) to datetime for better axis labels
+    df['start'] = pd.to_datetime(df['starting_time'], unit='s')
+    df['end'] = pd.to_datetime(df['finish_time'], unit='s')
+
+    plot = px.timeline(
+        df,
+        x_start='start',
+        x_end='end',
+        y='job_id',
+        title=f"Plotly Gantt Chart for Scheduler '{name}' - All Jobs"
+    )
+
+    plot.update_yaxes(autorange="reversed")
+    plot.update_layout(
+        height=1000,  # adjust if needed
+        xaxis_title="Time",
+        yaxis_title="Job ID",
+        margin=dict(l=20, r=20, t=60, b=20),
+    )
+
+    output_png = out_dir / f"plotly_gantt_chart_{name}_all_jobs.png"
+    plot.write_image(str(output_png), scale=2)

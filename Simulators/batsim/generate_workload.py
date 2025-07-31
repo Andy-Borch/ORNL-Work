@@ -54,14 +54,12 @@ def inject_failures(workload, output_path, job_failure_range, critical_failure_r
     profiles = workload['profiles']
     num_jobs = len(jobs)
 
-    # Determine job counts
     def get_count(percent_range): return min(int(num_jobs * random.uniform(*percent_range) / 100), num_jobs)
 
     fail_indices = set(random.sample(range(num_jobs), get_count(job_failure_range)))
     timeout_indices = set(random.sample([i for i in range(num_jobs) if i not in fail_indices], get_count(timeout_failure_range)))
     cancel_indices = set(random.sample([i for i in range(num_jobs) if i not in fail_indices and i not in timeout_indices], get_count(cancel_failure_range)))
 
-    # Choose which of the failed jobs are critical
     num_critical = get_count(critical_failure_range)
     critical_indices = set(random.sample(list(fail_indices), min(num_critical, len(fail_indices))))
 
@@ -79,7 +77,7 @@ def inject_failures(workload, output_path, job_failure_range, critical_failure_r
             continue
 
         job.setdefault("metadata", {})
-        job["return_code"] = 0  # Default to success
+        job["return_code"] = 0 
 
         failure_type = None
         if i in timeout_indices:
@@ -136,7 +134,6 @@ if __name__ == '__main__':
     parser.add_argument("--res-range", nargs=2, type=int, default=[1, 4])
     parser.add_argument("--subtime-range", nargs=2, type=int, default=[1, 50])
 
-    # Failure rate args
     parser.add_argument("--job-failure-min", type=float, default=3.0)
     parser.add_argument("--job-failure-max", type=float, default=15.0)
     parser.add_argument("--critical-failure-min", type=float, default=10.0)

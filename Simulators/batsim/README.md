@@ -35,12 +35,45 @@ Compares performance metrics across different algorithms.
 ### `plot_results.py`
 Generates plots and comparative graphs from simulation output files.
 
-## Results
+## Running the Batsim Simulation
 
-Simulation results are organized per algorithm. Each subdirectory may contain:
-- Raw data files (e.g., `.csv`, `.json`)
-- Logs and statistics
-- Plots or figures summarizing performance metrics
+To run a simulation with Batsim and a custom scheduler, use the following steps in **two separate terminals**.
+
+### Step 1: Launch Batsim
+
+**Terminal 1:**
+```bash
+batsim -p /tmp/batsim-src-stable/platforms/cluster512.xml \
+       -w sample_workload.json \
+       -e "\$(pwd)/scheduler_results/scheduler_results"
+```
+
+### Step 2: Launch the Scheduler
+
+**Terminal 2:**
+```bash
+batsched -v scheduler
+```
+
+---
+
+### Example: Using the `easy_bf` Scheduler
+
+If you're using the built-in `easy_bf` scheduler, update the paths accordingly:
+
+**Terminal 1:**
+```bash
+batsim -p /tmp/batsim-src-stable/platforms/cluster512.xml \
+       -w sample_workload.json \
+       -e "\$(pwd)/easy_bf/easy_bf"
+```
+
+**Terminal 2:**
+```bash
+batsched -v easy_bf
+```
+
+---
 
 ## Dynamic Results (Work in Progress)
 

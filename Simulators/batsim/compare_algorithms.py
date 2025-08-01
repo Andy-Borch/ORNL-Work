@@ -243,34 +243,37 @@ fig8.write_image(out_dir / "gantt_chart_jobs.png")
 
 # 9. Evalys Gantt Chart per scheduler (saved individually)
 for name, path in schedulers.items():
-    js = JobSet.from_csv(path / "out_jobs.csv")
-    fig9 = visu.gantt.plot_gantt(js)
-    plt.title(f"Evalys Gantt Chart for {name}")
-    plt.savefig(out_dir / f"evalys_gantt_chart_{name}.png", bbox_inches="tight")
-
-for name, path in schedulers.items():
     job_csv = path / "out_jobs.csv"
     df = pd.read_csv(job_csv)
 
-    # Convert numeric times (seconds) to datetime for better axis labels
+    df = df.sort_values(by='starting_time').reset_index(drop=True)
+
+    df['job_index'] = df.index
+
     df['start'] = pd.to_datetime(df['starting_time'], unit='s')
     df['end'] = pd.to_datetime(df['finish_time'], unit='s')
 
+    # Plot Gantt chart
     plot = px.timeline(
         df,
         x_start='start',
         x_end='end',
-        y='job_id',
-        title=f"Plotly Gantt Chart for Scheduler '{name}' - All Jobs"
+        y='job_index',
+        hover_data=['job_id', 'start', 'end'],  # Keep original job_id in tooltip
+        title=f"Plotly Gantt Chart for Scheduler '{name}' Jobs",
     )
 
-    plot.update_yaxes(autorange="reversed")
+    plot.update_yaxes(
+        title="Job ID",  # More readable label
+        tickmode='linear',
+        dtick=100  # Adjust spacing between y-ticks (e.g., every 100 jobs)
+    )
+
     plot.update_layout(
-        height=1000,  # adjust if needed
+        height=1000,
         xaxis_title="Time",
-        yaxis_title="Job ID",
         margin=dict(l=20, r=20, t=60, b=20),
     )
 
-    output_png = out_dir / f"plotly_gantt_chart_{name}_all_jobs.png"
+    output_png = out_dir / f"plotly_gantt_chart_{name}_jobs.png"
     plot.write_image(str(output_png), scale=2)

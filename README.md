@@ -34,10 +34,15 @@ This work is part of a workflow that processes job scheduler logs and outputs vi
 
 ##  Related Publication
 
-The work in the `Workflow/` directory contributed to a research paper that has beenvaccepted to the following conference:
+The work in the `Workflow/` directory contributed to a research paper that has been accepted to the following conference:
 
 **Title:** _"An LLM-Enabled Workflow for Understanding and Evolving HPC Job Scheduling Practices"_  
 **Conference:** 1st Workshop on Workflows, Intelligent Scientific Data, and Optimization for Automated Management, ICPP 2025
+
+The work in the `Simulator/` directory contributed to a research paper that has been accepted to the following conference:
+
+**Title:** _"Evaluating HPC Scheduling Strategies for Urgent Workloads"_  
+**Conference:** Sixth Combined Workshop on Interactive and Urgent High-Performance Computing, SC25
 
 While the paper is not yet published, this repository reflects some of the core techniques and visual outputs described in the work.
 
